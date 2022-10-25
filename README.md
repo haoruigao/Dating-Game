@@ -68,8 +68,7 @@ First round, received 20 random candidates from server.
 
 The format M `received` should be - Random Candidates values && Score
 ```
-v1:v2:...:vn
-SCORE:{S}
+v1:v2:...:vn:SCORE
 ```
 
 Following rounds, manufacture up to 20 additional candidates.  
