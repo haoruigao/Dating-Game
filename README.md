@@ -30,13 +30,22 @@ javac DatingGameServer.java
 ```
 java DatingGameServer {N}
 ```
+### Remark
+`Please execute your Dater first, then the Matchmaker.  `
 ### Dater P
 
 The Dater will be communicating with the game server over a socket at **port `20000`**.  
+```
+python3 SampleDaterClient.py
+```
 
 ### Matchmaker M
 
 The Matchmaker will be communicating with the game server over a socket at **port `20001`**.  
+```
+python3 SampleMatchMakerClient.py
+```
+
 
 ## Details
 ### Dater P
@@ -114,7 +123,7 @@ LOOP
 
 ## Implementation
 
-Sample clients are available in java, python, and c++, you could take them as reference and implement yours in `DateClient` and `MatchMakerClient`.
+Sample clients are available in `SampleDaterClient` and `SampleMatchMakerClient` in java and python, you could take them as reference and implement yours.
 
 ## Submission
 
