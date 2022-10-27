@@ -99,12 +99,13 @@ SCORE:{S}
 
 
 ## Playline
-
-The game consists of up to 20 rounds where  
+ 
 INIT
 * P initializes the weights
 * Server initializes 20 random candidates
 * M receives the 20 candidates and respective scores
+
+The game consists of up to 20 rounds where 
 ****
 LOOP
 * M sends a candidate C to S
