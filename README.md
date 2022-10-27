@@ -105,8 +105,9 @@ INIT
 * Server initializes 20 random candidates
 * M receives the 20 candidates and respective scores
 
-The game consists of up to 20 rounds where 
 ****
+
+The game consists of up to 20 rounds where  
 LOOP
 * M sends a candidate C to S
   * Valid example message for C: `0.9473:0.9636:0.4428:0.8956:0.5137`
