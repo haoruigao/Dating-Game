@@ -67,6 +67,9 @@ public class SampleMatchMakerClient {
       out.println(candidates);
       String inputLine = in.readLine();
       System.out.println("Server says: " + inputLine);
+      if (inputLine.equals("END")){
+       System.exit(-1);
+      }
       String [] tmp = inputLine.split(":");
       score = tmp[1];
       Thread.sleep(200);
