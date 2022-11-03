@@ -42,9 +42,10 @@ class DatingGameTask implements Runnable {
   final static Object lock = new Object();
   static Vector<BigDecimal> daterProfile = new Vector<BigDecimal>();
   static Vector<BigDecimal> initialDaterProfile = new Vector<BigDecimal>();
+  static Vector<BigDecimal> prevDaterProfile = new Vector<BigDecimal>();
   static String sharedCandidateWeightString;
   static String earlyExit = "";
-  Random generator = new Random();  
+  int[] seed = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
   Socket socket = null;
   PrintWriter out = null;
   BufferedReader in = null;
@@ -150,9 +151,15 @@ class DatingGameTask implements Runnable {
           return;          
         }
         daterProfile.add(attribute_index, attribute_weight);
-        if(turn == 0)
+        BigDecimal check;
+        if(turn == 0){
           initialDaterProfile.add(attribute_weight);
-        BigDecimal orig_attribute_weight = initialDaterProfile.get(attribute_index);
+          check = attribute_weight;
+        }
+        else{
+          check = prevDaterProfile.get(attribute_index);
+        }
+        BigDecimal orig_attribute_weight = check;
         BigDecimal weight_change = orig_attribute_weight.subtract(attribute_weight);
         if(weight_change.compareTo(BigDecimal.ZERO) != 0) {
           if(orig_attribute_weight.compareTo(BigDecimal.ZERO) == 0
@@ -169,7 +176,12 @@ class DatingGameTask implements Runnable {
         }
         sum_weights = sum_weights.add(attribute_weight);
         abs_sum_weights = abs_sum_weights.add(attribute_weight.abs());
+        if (prevDaterProfile.size() == N){
+          prevDaterProfile.remove(attribute_index);
+        }
+        prevDaterProfile.add(attribute_index, attribute_weight);
       }
+
       if(sum_weights.compareTo(BigDecimal.ZERO) != 0 || 
         abs_sum_weights.compareTo(BigDecimal.valueOf(2)) != 0) {
         endGame("Dater attribute weights don't meet requirments");
@@ -203,9 +215,10 @@ class DatingGameTask implements Runnable {
   public void matchMakerLogic() throws IOException, InterruptedException {
     if(daterProfile.size() == N) { // Ensure dater has set up a profile
       System.out.println("Sleeping for 5 seconds then interacting with the Matchmaker.");
-      Thread.sleep(5000); // Sleep 5 seconds so we can switch to a display of the fun.            
+      Thread.sleep(5000); // Sleep 5 seconds so we can switch to a display of the fun.   
       for(int i = 0; i < 20; i++) { // Generate 20 random candidates
         String candidateString = "";
+        Random generator = new Random(seed[i]);
         BigDecimal score = BigDecimal.ZERO;
         for(int k = 0; k < N; k++) {
           if(k > 0)
@@ -214,6 +227,7 @@ class DatingGameTask implements Runnable {
           candidateString += Integer.toString(weight);
           score = score.add(daterProfile.get(k).multiply(BigDecimal.valueOf(weight)));
         }
+        System.out.println(candidateString);
         out.println((candidateString+":"+score));
       }
       int bestCandidate = 1;
