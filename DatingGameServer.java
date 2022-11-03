@@ -154,20 +154,16 @@ class DatingGameTask implements Runnable {
         BigDecimal check;
         if(turn == 0){
           initialDaterProfile.add(attribute_weight);
-          check = attribute_weight;
         }
-        else{
-          check = prevDaterProfile.get(attribute_index);
-        }
-        BigDecimal orig_attribute_weight = check;
+        BigDecimal orig_attribute_weight = initialDaterProfile.get(attribute_index);
         BigDecimal weight_change = orig_attribute_weight.subtract(attribute_weight);
         if(weight_change.compareTo(BigDecimal.ZERO) != 0) {
           if(orig_attribute_weight.compareTo(BigDecimal.ZERO) == 0
-            || weight_change.divide(initialDaterProfile.get(attribute_index), RoundingMode.HALF_EVEN)
+            || weight_change.divide(orig_attribute_weight, RoundingMode.HALF_EVEN)
               .abs().compareTo(maxAlterationPct) > 0) {
             endGame("Dater changed an initial attribute by more than 20%");
             return;
-          }          
+          }
           changes++;
           if(BigDecimal.valueOf(changes).compareTo(maxNumChanges) > 0) {
             endGame("Dater changed more than 5% of the attributes");
