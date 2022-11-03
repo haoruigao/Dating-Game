@@ -51,7 +51,7 @@ python3 SampleMatchMakerClient.py
 ### Dater P
 Dater will send the message of its modified weights after first round to each attributes, the value lies [-1, 1] inclusive, and should be decimal values having at most two digits to the right of the decimal point e.g. 0.13 but not 0.134.  
 * The sum of positive weights should be 1, and the sum of negative weights should be -1.
-* In each response, P may modify `UP TO` 5% of their attribute weights (P may choose which ones) by 20% each with respect to the previous weights.
+* In each response, P may modify `UP TO` 5% of their attribute weights (P may choose which ones) by 20% each with respect to the original weights.
 
 The format P `received` should be (delimited with colon) - Candidates values
 ```
